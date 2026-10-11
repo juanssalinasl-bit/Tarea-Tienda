@@ -21,6 +21,11 @@ public class DetalleFactura {
         this.producto = producto;
     }
 
+    public  boolean verificarIhpone() {
+        return producto.getNombre().equals("Iphone 16 pro max");
+
+}
+
     public int getCantidadComprada() {
         return cantidadComprada;
     }

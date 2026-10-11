@@ -52,4 +52,11 @@ public record Factura(
 
     }
 
+    public boolean tieneIphone() {
+
+        boolean resultado = false;
+        resultado = listaDetallesFactura.getLast().verificarIhpone();
+        return resultado;
+
+    }
 }
