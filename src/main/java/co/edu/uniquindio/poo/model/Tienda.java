@@ -500,30 +500,33 @@ public class Tienda {
         return codigo;
     }
 
-    //1. Obtener la lista de los productos con una cantidad disponible mayor igual a 10
+
+    // Punto 1: Productos con cantidad disponible mayor o igual a 10
 
     public List<Producto> obtenerMayoresDiez() {
-        List<Producto> productosAdecuado = new ArrayList<>();
-
-        for (Producto productosBuenos : hashMaplistaProductos.values()) {
-            if (productosBuenos.getCantidadDisponible() >= 10) {
-                productosAdecuado.add(productosBuenos);
-            }
-        }
-        return productosAdecuado;
-    }
-
-    //2. Obtener la lista de codigos de los productos con una cantidad disponible mayor igual a 10 y menor que 50
-
-    public ArrayList<String> obtenerCodigosProductosAgotados(int limiteInferior, int limiteSuperior) {
-        ArrayList<String> resultado = new ArrayList<>();
-        for (Producto productoAux : hashMaplistaProductos.values()) {
-            if (productoAux.getCantidadDisponible() >= 10 && productoAux.getCantidadDisponible() < 50) {
-                resultado.add(productoAux.getCodigo());
+        List<Producto> resultado = new ArrayList<>();
+        for (Producto producto : listaProductos.values()) {
+            if (producto.getCantidadDisponible() >= 10) {
+                resultado.add(producto);
             }
         }
         return resultado;
     }
+
+
+    // Punto 2: Códigos de productos dentro del rango de cantidades
+
+    public ArrayList<String> obtenerCodigosProductosAgotados(int limiteInferior, int limiteSuperior) {
+        ArrayList<String> resultado = new ArrayList<>();
+        for (Producto producto : listaProductos.values()) {
+            if (producto.getCantidadDisponible() >= limiteInferior
+                    && producto.getCantidadDisponible() < limiteSuperior) {
+                resultado.add(producto.getCodigo());
+            }
+        }
+        return resultado;
+    }
+
     //3. Obtener la lista de clientes que hayan comprado el 07 de octubre de 2026
 
     public ArrayList<Cliente> obtenerClientesCompras2(LocalDate fechaConsulta) {
@@ -585,8 +588,8 @@ public class Tienda {
     public ArrayList<Producto> productosPorCategoria(Categoria categoria) {
         ArrayList<Producto> resultado = new ArrayList<>();
 
-        for (Producto producto : listarProductos()){
-            if(producto.getCategoria()==categoria){
+        for (Producto producto : listarProductos()) {
+            if (producto.getCategoria() == categoria) {
                 resultado.add(producto);
             }
         }
@@ -597,7 +600,7 @@ public class Tienda {
     //punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
     // los productos cuyo precio se encuentre dentro de ese rango, incluyendo ambos límites.
 
-    public  ArrayList<Producto> obtenerProductosPorPrecio(double precioMin , double precioMax) {
+    public ArrayList<Producto> obtenerProductosPorPrecio(double precioMin, double precioMax) {
         ArrayList<Producto> resultado = new ArrayList<>();
         for (Producto producto : listarProductos()) {
             if (producto.getValor() >= precioMin && producto.getValor() <= precioMax) {
@@ -606,10 +609,15 @@ public class Tienda {
         }
         return resultado;
     }
-}
+
 
     //punto 9: Implementar un método que retorne todos los productos
     // registrados en la tienda, ordenados de menor a mayor según su precio.
+
+    public ArrayList<Producto> productosOrdenados() {
+        ArrayList<Producto> resultado = new ArrayList<>();
+
+    }
 
     //punto 10: Implementar un método que identifique el producto con el precio más alto de la tienda.
     // Si no existen productos registrados, el método debe retornar un Optional vacío.
