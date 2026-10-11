@@ -43,4 +43,13 @@ public record Factura(
                 + " | " + estadoFactura
                 + " | " + metodoPago;
     }
+
+    public boolean tieneClienteConR() {
+
+        boolean resultado = false;
+        resultado = cliente.verificarNombreConR();
+        return resultado ;
+
+    }
+
 }

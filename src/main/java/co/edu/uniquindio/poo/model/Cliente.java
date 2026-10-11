@@ -95,4 +95,9 @@ public class Cliente {
         return documentoIdentidad + " | " + nombreCompleto + " | " + telefono
                 + " | " + correo + " | " + ciudadResidencia;
     }
+
+    public boolean verificarNombreConR() {
+        return nombreCompleto.startsWith("R");
+    }
+
 }
