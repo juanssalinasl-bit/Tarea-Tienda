@@ -631,4 +631,14 @@ public class Tienda {
     // todos los clientes que residan en ella.
     // La búsqueda debe realizarse sin diferenciar entre mayúsculas y minúsculas.
 
+    public ArrayList<Cliente> obtenerClientesPorCiudad(String ciudad) {
+        ArrayList<Cliente> resultado = new ArrayList<>();
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getCiudadResidencia().equalsIgnoreCase(ciudad)) {
+                resultado.add(cliente);
+            }
+        }
+            return resultado;
+
+    }
 }
