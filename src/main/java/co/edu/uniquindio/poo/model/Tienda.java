@@ -470,6 +470,16 @@ public class Tienda {
         }
         return resultado;
     }
+    //3. Obtener la lista de clientes que hayan comprado el 07 de octubre de 2026
 
+    public ArrayList<Cliente> obtenerClientesCompras2(LocalDate fechaConsulta) {
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        for (Factura factura : listaFacturas) {
+            if (factura.fecha().isEqual(fechaConsulta)) {
+                listaClientes.add(factura.cliente());
+            }
+        }
+        return listaClientes;
+    }
 
 }
