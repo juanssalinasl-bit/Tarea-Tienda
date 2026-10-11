@@ -446,5 +446,18 @@ public class Tienda {
         return codigo;
     }
 
+    //1. Obtener la lista de los productos con una cantidad disponible mayor igual a 10
+
+    public List<Producto> obtenerMayoresDiez() {
+        List<Producto> productosAdecuado = new ArrayList<>();
+
+        for (Producto productosBuenos : hashMaplistaProductos.values()) {
+            if (productosBuenos.getCantidadDisponible() >= 10) {
+                productosAdecuado.add(productosBuenos);
+            }
+        }
+        return productosAdecuado;
+    }
+
 
 }
