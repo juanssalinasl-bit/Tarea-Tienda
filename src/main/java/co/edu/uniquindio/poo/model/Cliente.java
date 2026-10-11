@@ -100,4 +100,7 @@ public class Cliente {
         return nombreCompleto.startsWith("R");
     }
 
+    public boolean verificarNombreJuan() {
+        return  nombreCompleto.startsWith("Juan");
+    }
 }

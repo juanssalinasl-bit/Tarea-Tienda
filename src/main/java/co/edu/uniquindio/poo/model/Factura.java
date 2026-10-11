@@ -59,4 +59,12 @@ public record Factura(
         return resultado;
 
     }
+
+    public boolean tieneClienteJuan() {
+        boolean resultado = false;
+        resultado = cliente.verificarNombreJuan();
+        return resultado ;
+
+    }
+
 }
