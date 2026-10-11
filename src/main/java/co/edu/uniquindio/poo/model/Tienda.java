@@ -1,12 +1,8 @@
 package co.edu.uniquindio.poo.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.Comparator;
 
 /**
  * Administra los clientes, productos, facturas, inventario y reportes de TechStore.
@@ -616,8 +612,15 @@ public class Tienda {
 
     public ArrayList<Producto> productosOrdenados() {
         ArrayList<Producto> resultado = new ArrayList<>();
-
+        for (Producto producto : listarProductos()) {
+            resultado.add(producto);
+        }
+        resultado.sort(Comparator.comparingDouble(Producto::getValor));
+        return resultado;
     }
+
+
+
 
     //punto 10: Implementar un método que identifique el producto con el precio más alto de la tienda.
     // Si no existen productos registrados, el método debe retornar un Optional vacío.
