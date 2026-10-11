@@ -619,11 +619,13 @@ public class Tienda {
         return resultado;
     }
 
-
-
-
     //punto 10: Implementar un método que identifique el producto con el precio más alto de la tienda.
     // Si no existen productos registrados, el método debe retornar un Optional vacío.
+
+    public Optional<Producto> productoMasCaro() {
+        return listaProductos.values().stream()
+                .max(Comparator.comparingDouble(Producto::getValor));
+    }
 
     //Punto 11: Implementar un método que reciba el nombre de una ciudad y retorne
     // todos los clientes que residan en ella.
