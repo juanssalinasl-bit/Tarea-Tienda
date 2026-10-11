@@ -24,7 +24,9 @@ public class Tienda {
     private final List<Factura> listaFacturas = new ArrayList<>();
     private final Map<String, Producto> listaProductos = new HashMap<>();
 
-    /** Crea la tienda con sus datos básicos. */
+    /**
+     * Crea la tienda con sus datos básicos.
+     */
     public Tienda(String nombre, String nit, String telefono, String direccion) {
         this.nombre = nombre;
         this.nit = nit;
@@ -72,7 +74,9 @@ public class Tienda {
 
     // -------------------- CRUD CLIENTE --------------------
 
-    /** Registra un cliente si su documento todavía no existe. */
+    /**
+     * Registra un cliente si su documento todavía no existe.
+     */
     public String registrarCliente(Cliente cliente) {
         if (cliente == null) {
             return "Cliente inválido";
@@ -88,14 +92,18 @@ public class Tienda {
         return "Ya existe un cliente con ese documento";
     }
 
-    /** Busca un cliente por su documento de identidad. */
+    /**
+     * Busca un cliente por su documento de identidad.
+     */
     public Optional<Cliente> buscarCliente(String documento) {
         return listaClientes.stream()
                 .filter(cliente -> cliente.getDocumentoIdentidad().equals(documento))
                 .findFirst();
     }
 
-    /** Actualiza los datos modificables de un cliente. */
+    /**
+     * Actualiza los datos modificables de un cliente.
+     */
     public String actualizarCliente(String documento, String nombre,
                                     String telefono, String correo, String ciudad) {
         Optional<Cliente> clienteEncontrado = buscarCliente(documento);
@@ -113,7 +121,9 @@ public class Tienda {
         return "Cliente actualizado correctamente";
     }
 
-    /** Elimina un cliente que no tenga facturas asociadas. */
+    /**
+     * Elimina un cliente que no tenga facturas asociadas.
+     */
     public String eliminarCliente(String documento) {
         Optional<Cliente> clienteEncontrado = buscarCliente(documento);
 
@@ -132,14 +142,18 @@ public class Tienda {
         return "Cliente eliminado correctamente";
     }
 
-    /** Devuelve una copia de los clientes registrados. */
+    /**
+     * Devuelve una copia de los clientes registrados.
+     */
     public List<Cliente> listarClientes() {
         return new ArrayList<>(listaClientes);
     }
 
     // -------------------- CRUD PRODUCTO --------------------
 
-    /** Registra un producto con un código único. */
+    /**
+     * Registra un producto con un código único.
+     */
     public String registrarProducto(Producto producto) {
         if (producto == null) {
             return "Producto inválido";
@@ -153,12 +167,16 @@ public class Tienda {
         return "Producto registrado correctamente";
     }
 
-    /** Busca un producto por su código. */
+    /**
+     * Busca un producto por su código.
+     */
     public Optional<Producto> buscarProducto(String codigo) {
         return Optional.ofNullable(listaProductos.get(codigo));
     }
 
-    /** Actualiza la descripción, el precio y la cantidad disponible. */
+    /**
+     * Actualiza la descripción, el precio y la cantidad disponible.
+     */
     public String actualizarProducto(String codigo, String descripcion,
                                      double precio, int cantidad) {
         Optional<Producto> productoEncontrado = buscarProducto(codigo);
@@ -177,7 +195,9 @@ public class Tienda {
         return "Producto actualizado correctamente";
     }
 
-    /** Elimina un producto que no esté incluido en facturas existentes. */
+    /**
+     * Elimina un producto que no esté incluido en facturas existentes.
+     */
     public String eliminarProducto(String codigo) {
         Optional<Producto> productoEncontrado = buscarProducto(codigo);
 
@@ -197,14 +217,18 @@ public class Tienda {
         return "Producto eliminado correctamente";
     }
 
-    /** Devuelve los productos registrados. */
+    /**
+     * Devuelve los productos registrados.
+     */
     public List<Producto> listarProductos() {
         return new ArrayList<>(listaProductos.values());
     }
 
     // -------------------- CRUD FACTURA --------------------
 
-    /** Registra una factura que tenga código único, cliente válido y productos. */
+    /**
+     * Registra una factura que tenga código único, cliente válido y productos.
+     */
     public String registrarFactura(Factura factura) {
         if (factura == null) {
             return "Factura inválida";
@@ -227,19 +251,25 @@ public class Tienda {
         return "Factura registrada correctamente";
     }
 
-    /** Busca una factura por su código. */
+    /**
+     * Busca una factura por su código.
+     */
     public Optional<Factura> buscarFactura(String codigo) {
         return listaFacturas.stream()
                 .filter(factura -> factura.codigo().equalsIgnoreCase(codigo))
                 .findFirst();
     }
 
-    /** Devuelve una copia de las facturas registradas. */
+    /**
+     * Devuelve una copia de las facturas registradas.
+     */
     public List<Factura> listarFacturas() {
         return new ArrayList<>(listaFacturas);
     }
 
-    /** Elimina una factura si no ha sido pagada. */
+    /**
+     * Elimina una factura si no ha sido pagada.
+     */
     public String eliminarFactura(String codigo) {
         Optional<Factura> facturaEncontrada = buscarFactura(codigo);
 
@@ -286,7 +316,9 @@ public class Tienda {
         return "Estado actualizado correctamente";
     }
 
-    /** Confirma una venta y descuenta del inventario las cantidades facturadas. */
+    /**
+     * Confirma una venta y descuenta del inventario las cantidades facturadas.
+     */
     public String confirmarVenta(String codigo) {
         Optional<Factura> facturaEncontrada = buscarFactura(codigo);
 
@@ -328,7 +360,9 @@ public class Tienda {
         return "Venta confirmada. Inventario actualizado correctamente";
     }
 
-    /** Reemplaza una factura en la tienda y en el historial del cliente. */
+    /**
+     * Reemplaza una factura en la tienda y en el historial del cliente.
+     */
     private void reemplazarFactura(Factura anterior, Factura nueva) {
         int indice = listaFacturas.indexOf(anterior);
 
@@ -341,21 +375,27 @@ public class Tienda {
 
     // -------------------- CONSULTAS Y REPORTES --------------------
 
-    /** Consulta las facturas asociadas al documento de un cliente. */
+    /**
+     * Consulta las facturas asociadas al documento de un cliente.
+     */
     public List<Factura> consultarFacturasCliente(String documento) {
         return listaFacturas.stream()
                 .filter(factura -> factura.cliente().getDocumentoIdentidad().equals(documento))
                 .toList();
     }
 
-    /** Consulta las facturas generadas en una fecha específica. */
+    /**
+     * Consulta las facturas generadas en una fecha específica.
+     */
     public List<Factura> consultarFacturasFecha(LocalDate fecha) {
         return listaFacturas.stream()
                 .filter(factura -> factura.fecha().equals(fecha))
                 .toList();
     }
 
-    /** Calcula el valor vendido en una fecha, contando únicamente facturas pagadas. */
+    /**
+     * Calcula el valor vendido en una fecha, contando únicamente facturas pagadas.
+     */
     public double obtenerTotalVendido(LocalDate fecha) {
         return listaFacturas.stream()
                 .filter(factura -> factura.fecha().equals(fecha)
@@ -364,7 +404,9 @@ public class Tienda {
                 .sum();
     }
 
-    /** Calcula el total vendido de todas las facturas pagadas. */
+    /**
+     * Calcula el total vendido de todas las facturas pagadas.
+     */
     public double obtenerTotalVendido() {
         return listaFacturas.stream()
                 .filter(factura -> factura.estadoFactura() == EstadoFactura.PAGADA)
@@ -372,28 +414,36 @@ public class Tienda {
                 .sum();
     }
 
-    /** Devuelve los productos cuya cantidad es igual o inferior al límite indicado. */
+    /**
+     * Devuelve los productos cuya cantidad es igual o inferior al límite indicado.
+     */
     public List<Producto> obtenerProductosBajoInventario(int minimo) {
         return listaProductos.values().stream()
                 .filter(producto -> producto.getCantidadDisponible() <= minimo)
                 .toList();
     }
 
-    /** Devuelve los productos que alcanzan la cantidad mínima indicada. */
+    /**
+     * Devuelve los productos que alcanzan la cantidad mínima indicada.
+     */
     public List<Producto> obtenerProductosConInventarioAlto(int minimo) {
         return listaProductos.values().stream()
                 .filter(producto -> producto.getCantidadDisponible() >= minimo)
                 .toList();
     }
 
-    /** Cuenta las facturas pagadas. */
+    /**
+     * Cuenta las facturas pagadas.
+     */
     public long contarFacturasPagadas() {
         return listaFacturas.stream()
                 .filter(factura -> factura.estadoFactura() == EstadoFactura.PAGADA)
                 .count();
     }
 
-    /** Encuentra el producto con más unidades vendidas. */
+    /**
+     * Encuentra el producto con más unidades vendidas.
+     */
     public Optional<Producto> obtenerProductoMasVendido() {
         Map<Producto, Integer> cantidadesVendidas = new HashMap<>();
 
@@ -412,7 +462,9 @@ public class Tienda {
                 .map(Map.Entry::getKey);
     }
 
-    /** Genera un resumen de las ventas y del inventario. */
+    /**
+     * Genera un resumen de las ventas y del inventario.
+     */
     public String generarReporteVentas() {
         StringBuilder reporte = new StringBuilder();
         reporte.append("REPORTE DE VENTAS - ").append(nombre).append('\n');
@@ -434,7 +486,9 @@ public class Tienda {
         return reporte.toString();
     }
 
-    /** Genera un código de factura único. */
+    /**
+     * Genera un código de factura único.
+     */
     public String generarCodigoFactura() {
         String codigo;
 
@@ -461,7 +515,7 @@ public class Tienda {
 
     //2. Obtener la lista de codigos de los productos con una cantidad disponible mayor igual a 10 y menor que 50
 
-    public ArrayList<String> obtenerCodigosProductosAgotados(int limiteInferior, int limiteSuperior){
+    public ArrayList<String> obtenerCodigosProductosAgotados(int limiteInferior, int limiteSuperior) {
         ArrayList<String> resultado = new ArrayList<>();
         for (Producto productoAux : hashMaplistaProductos.values()) {
             if (productoAux.getCantidadDisponible() >= 10 && productoAux.getCantidadDisponible() < 50) {
@@ -484,11 +538,11 @@ public class Tienda {
 
     //punto 4:   Obtener las facturas que tenga un cliente donde su nombre empiece por R
 
-    public ArrayList<Factura> obtenerFacturasClienteConR(){
+    public ArrayList<Factura> obtenerFacturasClienteConR() {
         ArrayList<Factura> resultado = new ArrayList<>();
 
-        for (Factura factura : listaFacturas){
-            if(factura.tieneClienteConR()){
+        for (Factura factura : listaFacturas) {
+            if (factura.tieneClienteConR()) {
                 resultado.add(factura);
             }
         }
@@ -498,11 +552,11 @@ public class Tienda {
 
     //punto 5:   Obtener las facturas donde se haya comprado un celular de marca Iphone 16 pro max
 
-    public ArrayList<Factura> obtenerFacturaIphone16(){
+    public ArrayList<Factura> obtenerFacturaIphone16() {
         ArrayList<Factura> resultado = new ArrayList<>();
 
-        for (Factura factura : listaFacturas){
-            if(factura.tieneIphone()){
+        for (Factura factura : listaFacturas) {
+            if (factura.tieneIphone()) {
                 resultado.add(factura);
             }
         }
@@ -512,11 +566,11 @@ public class Tienda {
     //punto 6:   Obtener las facturas que tenga un cliente
     // donde su nombre sea juan y haya comprado un celular de marca Iphone 16 pro max
 
-    public ArrayList<Factura> obtenerFacturasClienteJuanYIphone(){
+    public ArrayList<Factura> obtenerFacturasClienteJuanYIphone() {
         ArrayList<Factura> resultado = new ArrayList<>();
 
-        for (Factura factura : listaFacturas){
-            if(factura.tieneClienteJuan()&& factura.tieneIphone()){
+        for (Factura factura : listaFacturas) {
+            if (factura.tieneClienteJuan() && factura.tieneIphone()) {
                 resultado.add(factura);
             }
         }
@@ -527,6 +581,18 @@ public class Tienda {
 
     // Punto 7: Implementar un método que reciba una categoría
     //  y retorne todos los productos registrados que pertenezcan a ella.
+
+    public ArrayList<Producto> productosPorCategoria(Categoria categoria) {
+        ArrayList<Producto> resultado = new ArrayList<>();
+
+        for (Producto producto : listarProductos()){
+            if(producto.getCategoria()==categoria){
+                resultado.add(producto);
+            }
+        }
+        return resultado;
+    }
+
 
     //punto 8 : Implementar un método que reciba un precio mínimo y un precio máximo, y retorne
     // los productos cuyo precio se encuentre dentro de ese rango, incluyendo ambos límites.
