@@ -512,11 +512,11 @@ public class Tienda {
 
     // Punto 2: Códigos de productos dentro del rango de cantidades
 
-    public ArrayList<String> obtenerCodigosProductosAgotados(int limiteInferior, int limiteSuperior) {
+    public ArrayList<String> obtenerCodigosProductosPorCantidad(int limiteInferior, int limiteSuperior) {
         ArrayList<String> resultado = new ArrayList<>();
         for (Producto producto : listaProductos.values()) {
             if (producto.getCantidadDisponible() >= limiteInferior
-                    && producto.getCantidadDisponible() < limiteSuperior) {
+                    && producto.getCantidadDisponible() <= limiteSuperior) {
                 resultado.add(producto.getCodigo());
             }
         }
@@ -525,10 +525,11 @@ public class Tienda {
 
     //3. Obtener la lista de clientes que hayan comprado el 07 de octubre de 2026
 
-    public ArrayList<Cliente> obtenerClientesCompras2(LocalDate fechaConsulta) {
+    public ArrayList<Cliente> obtenerClientesCompras(LocalDate fechaConsulta) {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         for (Factura factura : listaFacturas) {
             if (factura.fecha().isEqual(fechaConsulta)) {
+            }if (factura.fecha().isEqual(fechaConsulta) && factura.estadoFactura() == EstadoFactura.PAGADA && !listaClientes.contains(factura.cliente())) {
                 listaClientes.add(factura.cliente());
             }
         }

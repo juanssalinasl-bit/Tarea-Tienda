@@ -53,11 +53,12 @@ public record Factura(
     }
 
     public boolean tieneIphone() {
-
-        boolean resultado = false;
-        resultado = listaDetallesFactura.getLast().verificarIhpone();
-        return resultado;
-
+        for (DetalleFactura detalle : listaDetallesFactura) {
+            if (detalle.verificarIphone()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean tieneClienteJuan() {
