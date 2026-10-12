@@ -641,4 +641,11 @@ public class Tienda {
             return resultado;
 
     }
+
+    public List<Cliente> obtenerClientesPorCiudad2(String ciudad) {
+        return listaClientes.stream()
+                .filter(cliente -> cliente.getCiudadResidencia()
+                        .equalsIgnoreCase(ciudad))
+                .toList();
+    }
 }
